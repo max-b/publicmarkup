@@ -1,4 +1,4 @@
-Django
+Django==1.4
 boto
 -e git://github.com/sunlightlabs/django-mediasync.git#egg=mediasync
 markdown
@@ -7,3 +7,5 @@ textile
 -e git://github.com/jcarbaugh/python-serpente.git#egg=serpente
 python-postmark
 gunicorn
+psycopg2
+djangocms_admin_style

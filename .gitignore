@@ -3,3 +3,4 @@ local_settings.py*
 *.pyc
 venv
 src/*
+settings.py

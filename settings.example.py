@@ -41,12 +41,14 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/media/'
+
+STATIC_URL = '/media/'
+STATIC_ROOT = 'static/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/adminmedia/' if DEBUG else 'http://assets.sunlightfoundation.com/admin/1.2.3/'
+ADMIN_MEDIA_PREFIX = '/adminmedia/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '!+9q&4%02-vb!&)%!3kd=s1me_h)f!)lvoq91(g(ch&af_l4&d'
@@ -85,6 +87,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.flatpages',
     'django.contrib.markup',
