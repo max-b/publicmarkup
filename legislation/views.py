@@ -21,12 +21,12 @@ def legislation_print(request, legislation_slug):
     return render_to_response("legislation/legislation_print.html", locals())
 
 def legislation_detail(request, legislation_slug):
-    
+
     try:
         legislation = Legislation.objects.get(slug=legislation_slug)
     except Legislation.DoesNotExist:
         return HttpResponseRedirect('/')
-    
+
     if request.method == 'POST':
         human_form = HumanityForm(request.POST, label_suffix='')
         is_human = request.POST.get('humanity', 'robot') == 'human'
@@ -34,12 +34,12 @@ def legislation_detail(request, legislation_slug):
             return post_comment(request)
     else:
         human_form = HumanityForm(label_suffix='')
-    
+
     data = {
         'legislation': legislation,
         'human_form': human_form,
     }
-    
+
     return render_to_response("legislation/legislation_detail.html", data,
                               context_instance=RequestContext(request))
 
@@ -51,9 +51,9 @@ def title_detail(request, legislation_slug, title_num):
     }
     return render_to_response("legislation/title_detail.html", data,
                               context_instance=RequestContext(request))
-    
+
 def section_detail(request, legislation_slug, title_num, section_num):
-    
+
     if request.method == 'POST':
         human_form = HumanityForm(request.POST, label_suffix='')
         is_human = request.POST.get('humanity', 'robot') == 'human'
@@ -61,7 +61,7 @@ def section_detail(request, legislation_slug, title_num, section_num):
             return post_comment(request)
     else:
         human_form = HumanityForm(label_suffix='')
-    
+
     section_num = int(section_num)
     section = Section.objects.get(number=section_num, title__number=title_num, title__legislation__slug=legislation_slug)
     try:
@@ -92,17 +92,17 @@ def save_comment(request):
         raise Http404, "All you do is GET, GET, GET. How about you POST every once in a while like you used to at the beginning of our relationship?"
 
 def save_free_comment(request):
-    
+
     if request.POST:
-        
+
         target = request.POST.get("target", None)
-        
+
         if target:
-            
+
             (ct_id, obj_id) = target.split(":")
-        
+
             user_type = ContentType.objects.get(id=ct_id)
-            
+
             if user_type.model == "section":
                 section = Section.objects.get(pk=obj_id)
                 legislation = section.title.legislation
@@ -110,17 +110,17 @@ def save_free_comment(request):
                 legislation = Legislation.objects.get(pk=obj_id)
             else:
                 legislation = None
-        
+
             if legislation and legislation.allow_comments:
-        
+
                 return post_comment(request, extra_context)
-                
+
             else:
-                
+
                 raise Http404, "Sorry, comments are not allowed on this legislation."
-    
+
     else:
-    
+
         raise Http404, "All you do is GET, GET, GET. How about you POST every once in a while like you used to at the beginning of our relationship?"
-        
+
     return HttpResponseServerError("DENIED! Not really, something just broke.")

@@ -20,5 +20,5 @@ urlpatterns = patterns('publicmarkup.legislation.views',
 )
 
 urlpatterns += patterns('django.contrib.syndication.views',
-    url(r'^feed/(?P<url>.*)/$', 'feed', {'feed_dict': feeds}),
+    url(r'^feed/(?P<url>.*)/$', 'Feed', {'feed_dict': feeds}),
 )
