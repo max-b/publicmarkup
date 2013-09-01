@@ -9,6 +9,7 @@ DATABASES = {
     }
 }
 
+
 MEDIASYNC = {
     'BACKEND': 'mediasync.backends.s3',
     'AWS_KEY': '',
